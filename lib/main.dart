@@ -74,6 +74,7 @@ class _WifiQRCodeState extends State<WifiQRCode> {
               child: const Text('QRコードを作成します'),
             ),
           ),
+          Image.asset('images/wifi_icon.jpeg'),
         ],
       ),
     );

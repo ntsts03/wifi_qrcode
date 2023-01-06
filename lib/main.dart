@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,12 @@ class WifiQRCode extends StatefulWidget {
 }
 
 class _WifiQRCodeState extends State<WifiQRCode> {
+  final ssidController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  String get wifiCode =>
+      'WIFI:S:${ssidController.text};T:WPA;P:${passwordController.text};;';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +45,10 @@ class _WifiQRCodeState extends State<WifiQRCode> {
               children: [
                 Row(
                   children: [
-                    const SizedBox(width: 80, child: Text('SSID')),
+                    const SizedBox(
+                      width: 80,
+                      child: Text('SSID'),
+                    ),
                     Expanded(
                       child: TextFormField(
                         decoration: const InputDecoration(
@@ -46,13 +56,17 @@ class _WifiQRCodeState extends State<WifiQRCode> {
                           fillColor: Colors.yellow,
                           filled: true,
                         ),
+                        controller: ssidController,
                       ),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const SizedBox(width: 80, child: Text('パスワード')),
+                    const SizedBox(
+                      width: 80,
+                      child: Text('パスワード'),
+                    ),
                     Expanded(
                       child: TextFormField(
                         decoration: const InputDecoration(
@@ -60,6 +74,7 @@ class _WifiQRCodeState extends State<WifiQRCode> {
                           fillColor: Colors.yellow,
                           filled: true,
                         ),
+                        controller: passwordController,
                       ),
                     ),
                   ],
@@ -70,11 +85,21 @@ class _WifiQRCodeState extends State<WifiQRCode> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  
+                });
+              },
               child: const Text('QRコードを作成します'),
             ),
           ),
-          Image.asset('images/wifi_icon.jpeg'),
+          if (ssidController.text.isEmpty||passwordController.text.isEmpty)
+            Image.asset('images/wifi_icon.jpeg')
+          else
+            QrImage(
+              data: wifiCode,
+              size: 200,
+            )
         ],
       ),
     );

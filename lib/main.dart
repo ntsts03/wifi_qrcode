@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Wifi QRコード生成',
       home: WifiQRCode(),
     );
@@ -35,7 +36,7 @@ class _WifiQRCodeState extends State<WifiQRCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wifi QRコード生成'),
+        title: const Text('Wifi QRコード作成アプリ'),
       ),
       body: Column(
         children: [
@@ -86,14 +87,12 @@ class _WifiQRCodeState extends State<WifiQRCode> {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: ElevatedButton(
               onPressed: () {
-                setState(() {
-                  
-                });
+                setState(() {});
               },
               child: const Text('QRコードを作成します'),
             ),
           ),
-          if (ssidController.text.isEmpty||passwordController.text.isEmpty)
+          if (ssidController.text.isEmpty || passwordController.text.isEmpty)
             Image.asset('images/wifi_icon.jpeg')
           else
             QrImage(

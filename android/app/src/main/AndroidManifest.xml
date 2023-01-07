@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wifi_qrcode">
+    package="com.ntsts03.wifi_qrcode">
    <application
         android:label="wifi_qrcode"
         android:name="${applicationName}"

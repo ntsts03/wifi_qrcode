@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Record extends StatefulWidget {
-  const Record({super.key});
-
+  const Record({
+    super.key,
+    required this.ssid,
+    required this.password,
+  });
+  final String ssid;
+  final String password;
   @override
   State<Record> createState() => _RecordState();
 }
@@ -14,7 +19,10 @@ class _RecordState extends State<Record> {
       appBar: AppBar(
         title: const Text('保存されたWiFi'),
       ),
-      body: WifiTile(ssid: , password: ,),
+      body: WifiTile(
+        ssid: widget.ssid,
+        password: widget.password,
+      ),
     );
   }
 }
@@ -24,7 +32,6 @@ class WifiTile extends StatelessWidget {
     Key? key,
     required this.ssid,
     required this.password,
-
   }) : super(key: key);
   final String ssid;
   final String password;
@@ -54,14 +61,14 @@ class WifiTile extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'パスワード',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Expanded(
-                      child: Text('パスワード内容'),
+                      child: Text(password),
                     ),
                   ],
                 ),

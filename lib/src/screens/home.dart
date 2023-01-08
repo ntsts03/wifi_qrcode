@@ -15,6 +15,8 @@ class _WifiQRCodeState extends State<WifiQRCode> {
   String get wifiCode =>
       'WIFI:S:${ssidController.text};T:WPA;P:${passwordController.text};;';
 
+  // void sendWifiCodetoWifiList
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

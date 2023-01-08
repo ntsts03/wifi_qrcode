@@ -23,7 +23,13 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  static const _screens = [WifiQRCode(), Record(ssid: 'testssid', password: 'testpass',)];
+  static const _screens = [
+    WifiQRCode(),
+    WifiList(
+      ssid: 'testssid',
+      password: 'testpass',
+    )
+  ];
 
   int _selectedIndex = 0;
 

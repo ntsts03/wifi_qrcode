@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Record extends StatefulWidget {
-  const Record({
+class WifiList extends StatefulWidget {
+  const WifiList({
     super.key,
     required this.ssid,
     required this.password,
@@ -9,10 +9,10 @@ class Record extends StatefulWidget {
   final String ssid;
   final String password;
   @override
-  State<Record> createState() => _RecordState();
+  State<WifiList> createState() => _WifiListState();
 }
 
-class _RecordState extends State<Record> {
+class _WifiListState extends State<WifiList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

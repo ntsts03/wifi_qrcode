@@ -26,8 +26,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const _screens = [
     WifiQRCode(),
     WifiList(
-      ssid: 'testssid',
-      password: 'testpass',
     )
   ];
 

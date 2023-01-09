@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:wifi_qrcode/main.dart';
 
 class WifiQRCode extends StatefulWidget {
   const WifiQRCode({super.key});
@@ -14,8 +15,6 @@ class _WifiQRCodeState extends State<WifiQRCode> {
 
   String get wifiCode =>
       'WIFI:S:${ssidController.text};T:WPA;P:${passwordController.text};;';
-
-  // void sendWifiCodetoWifiList
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +71,10 @@ class _WifiQRCodeState extends State<WifiQRCode> {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: ElevatedButton(
               onPressed: () {
-                setState(() {});
+                setState(() {
+                  box.put(ssidController.text,[ssidController.text, passwordController.text]);
+                  print(box.values);
+                });
               },
               child: const Text('QRコードを作成します'),
             ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:wifi_qrcode/main.dart';
 
 class WifiList extends StatefulWidget {
   const WifiList({
     super.key,
-    required this.ssid,
-    required this.password,
+    // required this.ssid,
+    // required this.password,
   });
-  final String ssid;
-  final String password;
+  // final String ssid
+  // final String password;
   @override
   State<WifiList> createState() => _WifiListState();
 }
@@ -19,9 +20,20 @@ class _WifiListState extends State<WifiList> {
       appBar: AppBar(
         title: const Text('保存されたWiFi'),
       ),
-      body: WifiTile(
-        ssid: widget.ssid,
-        password: widget.password,
+      body: ListView.builder(
+        itemCount: box.values.length,
+        itemBuilder: (context, index) {
+          final value = box.values.toList()[index] as List;
+          return WifiTile(
+            ssid: value[0],
+            password: value[1],
+            onPressed: () async {
+              await box.delete(value[0]);
+              setState(() {});
+              print(box.values);
+            },
+          );
+        },
       ),
     );
   }
@@ -32,9 +44,11 @@ class WifiTile extends StatelessWidget {
     Key? key,
     required this.ssid,
     required this.password,
+    required this.onPressed,
   }) : super(key: key);
   final String ssid;
   final String password;
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,7 +91,7 @@ class WifiTile extends StatelessWidget {
           ),
           const Icon(Icons.qr_code),
           const SizedBox(width: 40),
-          const Icon(Icons.delete),
+          IconButton(onPressed: onPressed, icon: const Icon(Icons.delete)),
         ],
       ),
     );

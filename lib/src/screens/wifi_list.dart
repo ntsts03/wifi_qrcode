@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wifi_qrcode/main.dart';
+import 'package:wifi_qrcode/src/screens/home.dart';
 
 class WifiList extends StatefulWidget {
   const WifiList({
     super.key,
-    // required this.ssid,
-    // required this.password,
   });
-  // final String ssid
-  // final String password;
+
   @override
   State<WifiList> createState() => _WifiListState();
 }
@@ -27,7 +26,20 @@ class _WifiListState extends State<WifiList> {
           return WifiTile(
             ssid: value[0],
             password: value[1],
-            onPressed: () async {
+            onPressedQrCode: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ListQrPage(
+                          ssid: value[0],
+                          password: value[1],
+                        )),
+              );
+              await box.get(value[0]);
+              setState(() {});
+              print(value[0]);
+            },
+            onPressedDelete: () async {
               await box.delete(value[0]);
               setState(() {});
               print(box.values);
@@ -44,11 +56,13 @@ class WifiTile extends StatelessWidget {
     Key? key,
     required this.ssid,
     required this.password,
-    required this.onPressed,
+    required this.onPressedQrCode,
+    required this.onPressedDelete,
   }) : super(key: key);
   final String ssid;
   final String password;
-  final Function() onPressed;
+  final Function() onPressedQrCode;
+  final Function() onPressedDelete;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,10 +103,38 @@ class WifiTile extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.qr_code),
+          IconButton(
+            onPressed: onPressedQrCode,
+            icon: const Icon(Icons.qr_code),
+          ),
           const SizedBox(width: 40),
-          IconButton(onPressed: onPressed, icon: const Icon(Icons.delete)),
+          IconButton(
+            onPressed: onPressedDelete,
+            icon: const Icon(Icons.delete),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class ListQrPage extends StatelessWidget {
+  const ListQrPage({
+    super.key,
+    required this.ssid,
+    required this.password,
+  });
+  final String ssid;
+  final String password;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: QrImage(
+          data: 'WIFI:S:${ssid};T:WPA;P:${password};;',
+          size: 200,
+        ),
       ),
     );
   }

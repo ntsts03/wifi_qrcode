@@ -25,8 +25,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const _screens = [
     WifiQRCode(),
-    WifiList(
-    )
+    WifiList(),
   ];
 
   int _selectedIndex = 0;

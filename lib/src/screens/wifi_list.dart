@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wifi_qrcode/main.dart';
-import 'package:wifi_qrcode/src/screens/home.dart';
 
 class WifiList extends StatefulWidget {
   const WifiList({
